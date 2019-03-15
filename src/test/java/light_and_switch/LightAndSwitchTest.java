@@ -14,10 +14,11 @@ public class LightAndSwitchTest {
     }
 
     @Test
-    void theLightStartsOff() {
+    void bothLightsStartsOff() {
         CircuitSwitch circuitSwitch = new CircuitSwitch();
 
-        assertThat(circuitSwitch.getLight().state()).isEqualTo(LIGHT_STATE.OFF);
+        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.OFF);
+        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.OFF);
     }
 
     @Test
@@ -29,11 +30,12 @@ public class LightAndSwitchTest {
     }
 
     @Test
-    void whenTheSwitchIsTurnedOn_theLightIsTurnedOn() {
+    void whenTheSwitchIsTurnedOn_bothLightsAreTurnedOn() {
         CircuitSwitch circuitSwitch = new CircuitSwitch();
         circuitSwitch.turnOn();
 
-        assertThat(circuitSwitch.getLight().state()).isEqualTo(LIGHT_STATE.ON);
+        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.ON);
+        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.ON);
     }
 
     @Test
@@ -46,11 +48,12 @@ public class LightAndSwitchTest {
     }
 
     @Test
-    void givenAnSwitchInAnOnState_itCanBeTurnedOff_and_theLightWillBeOff() {
+    void givenAnSwitchInAnOnState_itCanBeTurnedOff_and_bothLightsWillBeOff() {
         CircuitSwitch circuitSwitch = new CircuitSwitch();
         circuitSwitch.turnOn();
         circuitSwitch.turnOff();
 
-        assertThat(circuitSwitch.getLight().state()).isEqualTo(LIGHT_STATE.OFF);
+        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.OFF);
+        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.OFF);
     }
 }
