@@ -1,34 +1,30 @@
 package light_and_switch;
 
+import java.util.List;
+
 public class CircuitSwitch {
 
     private SWITCH_STATE state = SWITCH_STATE.OFF;
-    private Light light1 = new Light();
-    private Light light2 = new Light();
+    private final List<Light> lights;
+
+    public CircuitSwitch(List<Light> lights) {
+        this.lights = lights;
+    }
 
     public SWITCH_STATE state() {
         return state;
     }
 
-    public Light getLight1() {
-        return light1;
-    }
-
     public void turnOn() {
         state = SWITCH_STATE.ON;
 
-        light1.turnOn();
-        light2.turnOn();
+        lights.forEach(Light::turnOn);
     }
 
     public void turnOff() {
         state = SWITCH_STATE.OFF;
 
-        light1.turnOff();
-        light2.turnOff();
+        lights.forEach(Light::turnOff);
     }
 
-    public Light getLight2() {
-        return light2;
-    }
 }

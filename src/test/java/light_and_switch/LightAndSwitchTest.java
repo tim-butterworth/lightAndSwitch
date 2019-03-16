@@ -2,28 +2,37 @@ package light_and_switch;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LightAndSwitchTest {
 
     @Test
     void theSwitchStartsOff() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        CircuitSwitch circuitSwitch = new CircuitSwitch(Collections.emptyList());
 
         assertThat(circuitSwitch.state()).isEqualTo(SWITCH_STATE.OFF);
     }
 
     @Test
     void bothLightsStartsOff() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        List<Light> lights = Arrays.asList(new Light(), new Light());
 
-        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.OFF);
-        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.OFF);
+        new CircuitSwitch(lights);
+
+        assertThat(lights).hasSize(2);
+        for (Light light : lights) {
+            assertThat(light).isNotNull();
+            assertThat(light.state()).isEqualTo(LIGHT_STATE.OFF);
+        }
     }
 
     @Test
     void theSwitchCanBeTurnedOn() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        CircuitSwitch circuitSwitch = new CircuitSwitch(Collections.emptyList());
         circuitSwitch.turnOn();
 
         assertThat(circuitSwitch.state()).isEqualTo(SWITCH_STATE.ON);
@@ -31,16 +40,21 @@ public class LightAndSwitchTest {
 
     @Test
     void whenTheSwitchIsTurnedOn_bothLightsAreTurnedOn() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        List<Light> lights = Arrays.asList(new Light(), new Light());
+
+        CircuitSwitch circuitSwitch = new CircuitSwitch(lights);
         circuitSwitch.turnOn();
 
-        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.ON);
-        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.ON);
+        assertThat(lights).hasSize(2);
+        for (Light light : lights) {
+            assertThat(light).isNotNull();
+            assertThat(light.state()).isEqualTo(LIGHT_STATE.ON);
+        }
     }
 
     @Test
     void givenAnSwitchInAnOnState_itCanBeTurnedOff() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        CircuitSwitch circuitSwitch = new CircuitSwitch(Collections.emptyList());
         circuitSwitch.turnOn();
         circuitSwitch.turnOff();
 
@@ -49,11 +63,15 @@ public class LightAndSwitchTest {
 
     @Test
     void givenAnSwitchInAnOnState_itCanBeTurnedOff_and_bothLightsWillBeOff() {
-        CircuitSwitch circuitSwitch = new CircuitSwitch();
+        List<Light> lights = Arrays.asList(new Light(), new Light());
+        CircuitSwitch circuitSwitch = new CircuitSwitch(lights);
         circuitSwitch.turnOn();
         circuitSwitch.turnOff();
 
-        assertThat(circuitSwitch.getLight1().state()).isEqualTo(LIGHT_STATE.OFF);
-        assertThat(circuitSwitch.getLight2().state()).isEqualTo(LIGHT_STATE.OFF);
+        assertThat(lights).hasSize(2);
+        for (Light light : lights) {
+            assertThat(light).isNotNull();
+            assertThat(light.state()).isEqualTo(LIGHT_STATE.OFF);
+        }
     }
 }
